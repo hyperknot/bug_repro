@@ -1,0 +1,135 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.4/schema.json",
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 100
+  },
+  "files": {
+    "maxSize": 100000,
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/.venv",
+      //      "!**/*.json*",
+      "!**/_not_used",
+      "!**/cdn",
+      "!**/node_modules/**"
+    ]
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "domains": {
+      "solid": "all"
+    },
+    "rules": {
+      "style": {
+        //        "noUselessElse": "off",
+        //        "noParameterAssign": "off",
+        //        "noArguments": "off"
+        "noNonNullAssertion": "off",
+        //        "useConst": "off",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "generic"
+          }
+        },
+        "useLiteralEnumMembers": "error",
+        "noCommaOperator": "error",
+        "useNodejsImportProtocol": "error",
+        "useAsConstAssertion": "error",
+        "useNumericLiterals": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "useExponentiationOperator": "error",
+        "useTemplate": "error",
+        "noParameterAssign": "error",
+        "useDefaultParameterLast": "error",
+        "noArguments": "error",
+        "useImportType": "error",
+        "useExportType": "error",
+        "useShorthandFunctionType": "error"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off",
+        //                "useValidAnchor": "off",
+        "useButtonType": "off",
+        //        "noBlankTarget": "off",
+        //        "noNoninteractiveTabindex": "off"
+        "useSemanticElements": "off",
+        "useKeyWithMouseEvents": "off",
+        "useFocusableInteractive": "off",
+        "noNoninteractiveElementToInteractiveRole": "off",
+        "noStaticElementInteractions": "off"
+      },
+      "correctness": {
+        //        "useJsxKeyInIterable": "off",
+        //        "noUnreachable": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedImports": "off",
+        "noUnusedVariables": "off"
+      },
+      "suspicious": {
+        "noAssignInExpressions": "off",
+        "noEmptyBlock": "off",
+        "noExplicitAny": "off",
+        "noImplicitAnyLet": "off",
+        "noDebugger": "off"
+        //        "noDuplicateObjectKeys": "off"
+      },
+      "complexity": {
+        //        "noUselessFragments": "off"
+      },
+      "nursery": {
+        //        "noDestructuredProps": "off" // SolidJS
+      }
+    },
+    "includes": ["**", "!**/node_modules/**"]
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single"
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDuplicateProperties": "off"
+          },
+          "style": { "noDescendingSpecificity": "off" }
+        }
+      }
+    }
+  ]
+}

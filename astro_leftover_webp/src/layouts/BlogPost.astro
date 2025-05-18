@@ -1,0 +1,16 @@
+[---
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+
+
+type Props = CollectionEntry<'blog'>['data']
+
+const { heroImage } = Astro.props
+---
+
+
+<Image src={heroImage}
+       width={heroImage.width/2}
+       alt=""/>}
+
+]
