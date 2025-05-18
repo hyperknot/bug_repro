@@ -1,7 +1,6 @@
 ---
 import { Image, Picture } from "astro:assets";
 import sampleImage from "../600x400.png";
-import sampleImage2 from "../sample2.png";
 ---
 
 <html lang="en">
@@ -16,10 +15,6 @@ import sampleImage2 from "../sample2.png";
 		<h1>Astro</h1>
     <Picture
       src={sampleImage}
-      alt=""  />
-    <Image
-      src={sampleImage2}
-      width={sampleImage.width / 2}
       alt=""  />
 	</body>
 </html>
