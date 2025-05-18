@@ -1,0 +1,14 @@
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+/_astro/*
+  Cache-Control: public, max-age=315360000, immutable
+
+https://*.pages.dev/*
+  X-Robots-Tag: noindex
+
+#/app/*
+# X-Frame-Options: DENY
+#  X-Content-Type-Options: nosniff
+#  Referrer-Policy: no-referrer
+#  Permissions-Policy: document-domain=()
+#  Content-Security-Policy: script-src 'self'; frame-ancestors 'none';

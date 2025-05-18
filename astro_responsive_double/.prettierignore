@@ -1,0 +1,5 @@
+.venv
+.astro
+out
+dist
+pnpm-lock.yaml
