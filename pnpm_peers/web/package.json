@@ -1,0 +1,8 @@
+{
+  "name": "@myproject/web",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@myproject/shared": "workspace:*"
+  }
+}
