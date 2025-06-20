@@ -36,16 +36,14 @@ const styles = stylex.create({
 function App() {
   return (
     <div>
-      <div {...stylex.props(styles.local)}>local value - red if works</div>
-      <div {...stylex.props(styles.srcVar)}>var at ./src - green if works</div>
-      <div {...stylex.props(styles.projVar)}>var at ../ - orange if works</div>
+      <div {...stylex.props(styles.local)}>stylex local value - red if works</div>
+      <div {...stylex.props(styles.srcVar)}>stylex var at ./src/ - green if works</div>
+      <div {...stylex.props(styles.projVar)}>stylex var at ../ - orange if works</div>
       <div {...stylex.props(styles.outsideVar)}>
-        var at ../../vite_stylex_outside/ - purple if works
+        stylex var at ../../vite_stylex_outside/ - purple if works
       </div>
-      normal variable imported from @alias: {test}
-      <div {...stylex.props(styles.aliasVar)}>
-        var at ../../vite_stylex_outside/ - blue if works
-      </div>
+      JS var imported from @alias: {test}
+      <div {...stylex.props(styles.aliasVar)}>stylex var at @alias/ - blue if works</div>
     </div>
   )
 }
