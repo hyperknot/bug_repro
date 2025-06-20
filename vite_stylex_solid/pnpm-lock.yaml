@@ -40,8 +40,8 @@ importers:
         specifier: ^9.25.0
         version: 9.29.0
       '@stylexjs/babel-plugin':
-        specifier: link:/Users/user/Documents/dev/temp/stylex/stylex/packages/@stylexjs/babel-plugin
-        version: link:../../../temp/stylex/stylex/packages/@stylexjs/babel-plugin
+        specifier: ^0.13.1
+        version: 0.13.1
       '@stylexjs/postcss-plugin':
         specifier: ^0.13.1
         version: 0.13.1
