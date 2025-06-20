@@ -1,5 +1,7 @@
+import { AliasComponent } from '@alias/component'
 import { aliasConst } from '@alias/const'
 import { aliasVars } from '@alias/vars.stylex'
+import { WorkspaceComponent } from '@repo/workspace/component'
 import { workspaceConst } from '@repo/workspace/const'
 import { workspaceVars } from '@repo/workspace/vars.stylex'
 import * as stylex from '@stylexjs/stylex'
@@ -48,11 +50,13 @@ function App() {
       {/**/}
       <div>JS var from @alias: {aliasConst}</div>
       <div {...stylex.props(styles.aliasVar)}>stylex var from @alias - blue if works</div>
+      <AliasComponent />
       {/**/}
       <div>JS var from @repo/workspace: {workspaceConst}</div>
       <div {...stylex.props(styles.workspaceVar)}>
         stylex var from @repo/workspace - magenta if works
       </div>
+      <WorkspaceComponent />
     </div>
   )
 }
