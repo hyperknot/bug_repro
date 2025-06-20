@@ -29,7 +29,7 @@ const styles = stylex.create({
     // if I uncomment the line below, it breaks with
     // Could not resolve the path to the imported file.
     // Please ensure that the theme file has a .stylex.js or .stylex.ts extension ...
-    // color: aliasVars.color,
+    color: aliasVars.color,
   },
 })
 

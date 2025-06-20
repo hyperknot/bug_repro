@@ -19,9 +19,9 @@ const babelConfig = {
           // rootDir: '..',
         },
         // rewriteAliases: true,
-        // aliases: {
-        //   '@alias': path.resolve('../vite_stylex_outside'),
-        // },
+        aliases: {
+          '@alias/*': path.resolve('../vite_stylex_outside/*'),
+        },
       },
     ],
   ],
