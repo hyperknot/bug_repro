@@ -1,6 +1,6 @@
 // @ts-ignore
 import * as stylex from '@stylexjs/stylex'
 
-export const aliasVars = stylex.defineVars({
+export const aliasOutsideVars = stylex.defineVars({
   color: 'blue',
 })

@@ -18,7 +18,7 @@
     // Path mappings for all packages
     "baseUrl": "..",
     "paths": {
-      "@alias/*": ["vite_stylex_outside/*"]
+      "@alias_outside/*": ["vite_stylex_outside/*"]
     },
 
     /* Linting */

@@ -20,7 +20,7 @@ const babelConfig = {
         },
         // rewriteAliases: true,
         aliases: {
-          '@alias/*': path.resolve('../vite_stylex_outside/*'),
+          '@alias_outside/*': path.resolve('../vite_stylex_outside/*'),
         },
       },
     ],
@@ -33,7 +33,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@alias': path.resolve('../vite_stylex_outside'),
+      '@alias_outside': path.resolve('../vite_stylex_outside'),
     },
   },
   plugins: [
