@@ -16,7 +16,7 @@ const babelConfig = {
         treeshakeCompensation: true,
         unstable_moduleResolution: {
           type: 'commonJS',
-          rootDir: '.',
+          // rootDir: '.',
         },
       },
     ],
@@ -37,6 +37,7 @@ export default defineConfig({
             //
             path.resolve('src/**/*.{ts,tsx}'),
             path.resolve('./*.{ts,tsx}'),
+            path.resolve('../vite_stylex_outside/**/*.{ts,tsx}'),
           ],
           useCSSLayers: true,
         }),

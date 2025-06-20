@@ -1,8 +1,5 @@
 import * as stylex from '@stylexjs/stylex'
-
-// @ts-ignore
-import { outsideVars } from '../../vite_stylex_outside/outsideVars'
-
+import { outsideVars } from '../../vite_stylex_outside/outsideVars.stylex'
 import { projVars } from '../projVars.stylex'
 import { srcVars } from './srcVars.stylex'
 
@@ -24,7 +21,7 @@ const styles = stylex.create({
   // "Could not resolve the path to the imported file.
   // Please ensure that the theme file has a .stylex.js or .stylex.ts extension and follows the rules for defining variables:"
   outsideVar: {
-    // color: outsideVars.color,
+    color: outsideVars.color,
   },
 })
 
