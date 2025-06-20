@@ -29,7 +29,8 @@ const babelConfig = {
 
 export default defineConfig({
   build: {
-    cssMinify: false, // just to see the results
+    cssMinify: false,
+    minify: false,
   },
   resolve: {
     alias: {

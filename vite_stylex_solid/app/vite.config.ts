@@ -1,8 +1,7 @@
 import path from 'node:path'
 // @ts-ignore
 import stylex from '@stylexjs/postcss-plugin'
-import react from '@vitejs/plugin-react'
-import { defineConfig, defineConfig } from 'vite'
+import { defineConfig } from 'vite'
 import solid from 'vite-plugin-solid'
 
 const babelConfig = {
@@ -30,7 +29,8 @@ const babelConfig = {
 
 export default defineConfig({
   build: {
-    cssMinify: false, // just to see the results
+    cssMinify: false,
+    minify: false,
   },
   resolve: {
     alias: {
