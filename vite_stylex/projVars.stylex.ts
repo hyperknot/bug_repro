@@ -1,5 +1,5 @@
 import * as stylex from '@stylexjs/stylex'
 
 export const projVars = stylex.defineVars({
-  color: 'yellow',
+  color: 'orange',
 })

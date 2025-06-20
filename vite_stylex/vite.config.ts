@@ -33,7 +33,11 @@ export default defineConfig({
       plugins: [
         stylex({
           babelConfig,
-          include: [path.resolve('src/**/*.{ts,tsx}')],
+          include: [
+            //
+            path.resolve('src/**/*.{ts,tsx}'),
+            path.resolve('./*.{ts,tsx}'),
+          ],
           useCSSLayers: true,
         }),
       ],

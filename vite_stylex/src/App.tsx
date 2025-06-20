@@ -33,8 +33,10 @@ function App() {
     <div>
       <div {...stylex.props(styles.local)}>local value - red if works</div>
       <div {...stylex.props(styles.srcVar)}>var at ./src - green if works</div>
-      <div {...stylex.props(styles.projVar)}>var at ../ - yellow if works</div>
-      {/*<div {...stylex.props(styles.projVar)}>var at ../outside - purple if works</div>*/}
+      <div {...stylex.props(styles.projVar)}>var at ../ - orange if works</div>
+      <div {...stylex.props(styles.outsideVar)}>
+        var at ../../vite_stylex_outside/ - purple if works
+      </div>
     </div>
   )
 }
