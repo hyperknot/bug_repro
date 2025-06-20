@@ -37,13 +37,13 @@ function App() {
   return (
     <div>
       <div {...stylex.props(styles.local)}>stylex local value - red if works</div>
-      <div {...stylex.props(styles.srcVar)}>stylex var at ./src/ - green if works</div>
-      <div {...stylex.props(styles.projVar)}>stylex var at ../ - orange if works</div>
+      <div {...stylex.props(styles.srcVar)}>stylex var from ./src/ - green if works</div>
+      <div {...stylex.props(styles.projVar)}>stylex var from ../ - orange if works</div>
       <div {...stylex.props(styles.outsideVar)}>
-        stylex var at ../../vite_stylex_outside/ - purple if works
+        stylex var from ../../vite_stylex_outside/ - purple if works
       </div>
-      JS var imported from @alias: {test}
-      <div {...stylex.props(styles.aliasVar)}>stylex var at @alias/ - blue if works</div>
+      JS var from @alias: {test}
+      <div {...stylex.props(styles.aliasVar)}>stylex var from @alias/ - blue if works</div>
     </div>
   )
 }
