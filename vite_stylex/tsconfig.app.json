@@ -15,6 +15,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    // Path mappings for all packages
+    "baseUrl": "..",
+    "paths": {
+      "@alias/*": ["vite_stylex_outside/*"]
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

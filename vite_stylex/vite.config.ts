@@ -16,8 +16,12 @@ const babelConfig = {
         treeshakeCompensation: true,
         unstable_moduleResolution: {
           type: 'commonJS',
-          // rootDir: '.',
+          // rootDir: '..',
         },
+        // rewriteAliases: true,
+        // aliases: {
+        //   '@alias': path.resolve('../vite_stylex_outside'),
+        // },
       },
     ],
   ],
@@ -27,7 +31,16 @@ export default defineConfig({
   build: {
     cssMinify: false, // just to see the results
   },
-  plugins: [react({ babel: babelConfig })],
+  resolve: {
+    alias: {
+      '@alias': path.resolve('../vite_stylex_outside'),
+    },
+  },
+  plugins: [
+    react({
+      babel: babelConfig,
+    }),
+  ],
   css: {
     postcss: {
       plugins: [

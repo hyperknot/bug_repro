@@ -1,5 +1,9 @@
+// @ts-ignore
+import { aliasVars } from '@alias/aliasVars.stylex'
+import { test } from '@alias/const'
 import * as stylex from '@stylexjs/stylex'
-import { aliasVars } from '../../vite_stylex_outside/aliasVars.stylex'
+
+// noinspection ES6PreferShortImport
 import { outsideVars } from '../../vite_stylex_outside/outsideVars.stylex'
 import { projVars } from '../projVars.stylex'
 import { srcVars } from './srcVars.stylex'
@@ -22,7 +26,10 @@ const styles = stylex.create({
   },
 
   aliasVar: {
-    color: aliasVars.color,
+    // if I uncomment the line below, it breaks with
+    // Could not resolve the path to the imported file.
+    // Please ensure that the theme file has a .stylex.js or .stylex.ts extension ...
+    // color: aliasVars.color,
   },
 })
 
@@ -35,6 +42,7 @@ function App() {
       <div {...stylex.props(styles.outsideVar)}>
         var at ../../vite_stylex_outside/ - purple if works
       </div>
+      normal variable imported from @alias: {test}
       <div {...stylex.props(styles.aliasVar)}>
         var at ../../vite_stylex_outside/ - blue if works
       </div>
