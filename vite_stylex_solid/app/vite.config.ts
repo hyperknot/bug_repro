@@ -2,7 +2,7 @@ import path from 'node:path'
 // @ts-ignore
 import stylex from '@stylexjs/postcss-plugin'
 import { defineConfig } from 'vite'
-import solid from 'vite-plugin-solid'
+import solid from './vite-plugin-solid-mod'
 
 const babelConfig = {
   presets: ['@babel/preset-typescript'],
