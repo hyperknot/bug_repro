@@ -12,7 +12,8 @@
   "dependencies": {
     "@stylexjs/stylex": "^0.13.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@repo/shared": "workspace:*"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.1",

@@ -20,7 +20,7 @@ const babelConfig = {
         },
         // rewriteAliases: true,
         aliases: {
-          '@alias_outside/*': path.resolve('../vite_stylex_outside/*'),
+          '@shared_outside/*': path.resolve('../shared/*'),
         },
       },
     ],
@@ -33,7 +33,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@alias_outside': path.resolve('../vite_stylex_outside'),
+      '@shared_outside': path.resolve('../shared'),
     },
   },
   plugins: [
@@ -50,7 +50,10 @@ export default defineConfig({
             //
             path.resolve('src/**/*.{ts,tsx}'),
             path.resolve('./*.{ts,tsx}'),
-            path.resolve('../vite_stylex_outside/**/*.{ts,tsx}'),
+
+            // any of the following two works
+            // path.resolve('../shared/**/*.{ts,tsx}'),
+            path.resolve('node_modules/@repo/shared/**/*.{ts,tsx}'),
           ],
           useCSSLayers: true,
         }),

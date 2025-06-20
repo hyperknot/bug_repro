@@ -1,5 +1,2 @@
-onlyBuiltDependencies:
-  - esbuild
-
 overrides:
   "@stylexjs/babel-plugin": link:/Users/user/Documents/dev/temp/stylex/stylex/packages/@stylexjs/babel-plugin
