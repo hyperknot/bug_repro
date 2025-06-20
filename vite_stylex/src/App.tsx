@@ -1,4 +1,5 @@
 import * as stylex from '@stylexjs/stylex'
+import { aliasVars } from '../../vite_stylex_outside/aliasVars.stylex'
 import { outsideVars } from '../../vite_stylex_outside/outsideVars.stylex'
 import { projVars } from '../projVars.stylex'
 import { srcVars } from './srcVars.stylex'
@@ -12,16 +13,16 @@ const styles = stylex.create({
     color: srcVars.color,
   },
 
-  // this has no effect
   projVar: {
     color: projVars.color,
   },
 
-  // Uncommenting this breaks with
-  // "Could not resolve the path to the imported file.
-  // Please ensure that the theme file has a .stylex.js or .stylex.ts extension and follows the rules for defining variables:"
   outsideVar: {
     color: outsideVars.color,
+  },
+
+  aliasVar: {
+    color: aliasVars.color,
   },
 })
 
@@ -33,6 +34,9 @@ function App() {
       <div {...stylex.props(styles.projVar)}>var at ../ - orange if works</div>
       <div {...stylex.props(styles.outsideVar)}>
         var at ../../vite_stylex_outside/ - purple if works
+      </div>
+      <div {...stylex.props(styles.aliasVar)}>
+        var at ../../vite_stylex_outside/ - blue if works
       </div>
     </div>
   )
