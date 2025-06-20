@@ -34,7 +34,7 @@ export default defineConfig({
         stylex({
           babelConfig,
           include: [path.resolve('src/**/*.{ts,tsx}')],
-          useCSSLayers: false,
+          useCSSLayers: true,
         }),
       ],
     },

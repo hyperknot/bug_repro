@@ -1,15 +1,42 @@
 import * as stylex from '@stylexjs/stylex'
-import { spacing } from './tokens.stylex'
+
+// @ts-ignore
+import { outsideVars } from '../../vite_stylex_outside/outsideVars'
+
+import { projVars } from '../projVars.stylex'
+import { srcVars } from './srcVars.stylex'
 
 const styles = stylex.create({
-  base: {
+  local: {
     color: 'red',
-    fontSize: spacing.xxlarge,
+  },
+
+  srcVar: {
+    color: srcVars.color,
+  },
+
+  // this has no effect
+  projVar: {
+    color: projVars.color,
+  },
+
+  // Uncommenting this breaks with
+  // "Could not resolve the path to the imported file.
+  // Please ensure that the theme file has a .stylex.js or .stylex.ts extension and follows the rules for defining variables:"
+  outsideVar: {
+    // color: outsideVars.color,
   },
 })
 
 function App() {
-  return <div {...stylex.props(styles.base)}>Big Red if works</div>
+  return (
+    <div>
+      <div {...stylex.props(styles.local)}>local value - red if works</div>
+      <div {...stylex.props(styles.srcVar)}>var at ./src - green if works</div>
+      <div {...stylex.props(styles.projVar)}>var at ../ - yellow if works</div>
+      {/*<div {...stylex.props(styles.projVar)}>var at ../outside - purple if works</div>*/}
+    </div>
+  )
 }
 
 export default App
