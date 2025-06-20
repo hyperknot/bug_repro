@@ -1,6 +1,5 @@
-// @ts-ignore
 import * as stylex from '@stylexjs/stylex'
 
-export const aliasNodeVars = stylex.defineVars({
+export const workspaceVars = stylex.defineVars({
   color: 'Magenta',
 })

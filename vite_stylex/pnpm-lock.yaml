@@ -8,9 +8,9 @@ importers:
 
   app:
     dependencies:
-      '@repo/shared':
+      '@repo/workspace':
         specifier: workspace:*
-        version: link:../shared
+        version: link:../workspace
       '@stylexjs/stylex':
         specifier: ^0.13.1
         version: 0.13.1
@@ -76,7 +76,11 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@24.0.3))
 
-  shared: {}
+  workspace:
+    dependencies:
+      '@stylexjs/stylex':
+        specifier: ^0.13.1
+        version: 0.13.1
 
 packages:
 

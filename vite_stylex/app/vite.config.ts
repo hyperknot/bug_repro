@@ -20,7 +20,7 @@ const babelConfig = {
         },
         // rewriteAliases: true,
         aliases: {
-          '@shared_outside/*': path.resolve('../shared/*'),
+          '@alias/*': path.resolve('../alias/*'),
         },
       },
     ],
@@ -33,7 +33,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@shared_outside': path.resolve('../shared'),
+      '@alias': path.resolve('../alias'),
     },
   },
   plugins: [
@@ -51,9 +51,9 @@ export default defineConfig({
             path.resolve('src/**/*.{ts,tsx}'),
             path.resolve('./*.{ts,tsx}'),
 
-            // any of the following two works
-            // path.resolve('../shared/**/*.{ts,tsx}'),
-            path.resolve('node_modules/@repo/shared/**/*.{ts,tsx}'),
+            path.resolve('../outside/**/*.{ts,tsx}'),
+            path.resolve('../alias/**/*.{ts,tsx}'),
+            path.resolve('node_modules/@repo/workspace/**/*.{ts,tsx}'),
           ],
           useCSSLayers: true,
         }),

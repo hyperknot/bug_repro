@@ -1,0 +1,6 @@
+{
+  "name": "@repo/workspace",
+  "dependencies": {
+    "@stylexjs/stylex": "^0.13.1"
+  }
+}
