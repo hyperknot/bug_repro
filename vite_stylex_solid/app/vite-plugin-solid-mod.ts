@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import * as babel from '@babel/core'
+// @ts-ignore
 import solid from 'babel-preset-solid'
 import { mergeAndConcat } from 'merge-anything'
 import solidRefresh from 'solid-refresh/babel'
@@ -382,7 +383,6 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
       }
 
       const babelOptions = mergeAndConcat(babelUserOptions, opts) as babel.TransformOptions
-      console.log(JSON.stringify(babelOptions, null, 2))
 
       const { code, map } = await babel.transformAsync(source, babelOptions)
 
