@@ -1,7 +1,7 @@
 import path from 'node:path'
 // @ts-ignore
 import stylex from '@stylexjs/postcss-plugin'
-import react from '@vitejs/plugin-react'
+import react from './vite-plugin-react-mod'
 import { defineConfig } from 'vite'
 
 const babelConfig = {
