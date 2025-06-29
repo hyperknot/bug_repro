@@ -11,8 +11,7 @@ injectIntoGlobalHook(window);
 window.$RefreshReg$ = () => {};
 window.$RefreshSig$ = () => (type) => type;`
 
-export const getPreambleCode = (base: string): string =>
-  preambleCode.replace('__BASE__', base)
+export const getPreambleCode = (base: string): string => preambleCode.replace('__BASE__', base)
 
 export const avoidSourceMapOption = Symbol()
 
@@ -31,9 +30,7 @@ export function addRefreshWrapper<M extends { mappings: string }>(
 
   const avoidSourceMap = map === avoidSourceMapOption
   const newMap =
-    typeof normalizedMap === 'string'
-      ? (JSON.parse(normalizedMap) as M)
-      : normalizedMap
+    typeof normalizedMap === 'string' ? (JSON.parse(normalizedMap) as M) : normalizedMap
 
   let newCode = code
   if (hasRefresh) {
@@ -82,9 +79,7 @@ const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof 
 
 if (import.meta.hot && !inWebWorker) {
   RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
-    RefreshRuntime.registerExportsForReactRefresh(${JSON.stringify(
-      id,
-    )}, currentExports);
+    RefreshRuntime.registerExportsForReactRefresh(${JSON.stringify(id)}, currentExports);
     import.meta.hot.accept((nextExports) => {
       if (!nextExports) return;
       const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate(${JSON.stringify(
@@ -96,7 +91,7 @@ if (import.meta.hot && !inWebWorker) {
 }
 `
   if (newMap) {
-    newMap.mappings = ';;;' + newMap.mappings
+    newMap.mappings = `;;;${newMap.mappings}`
   }
 
   return { code: newCode, map: newMap }

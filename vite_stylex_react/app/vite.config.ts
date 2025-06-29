@@ -1,8 +1,8 @@
 import path from 'node:path'
 // @ts-ignore
 import stylex from '@stylexjs/postcss-plugin'
-import react from './vite-plugin-react-mod'
 import { defineConfig } from 'vite'
+import react from './vite-plugin-react-mod'
 
 const babelConfig = {
   presets: ['@babel/preset-typescript'],

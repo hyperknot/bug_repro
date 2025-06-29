@@ -1,24 +1,24 @@
-import * as babel from '@babel/core';
-import solid from 'babel-preset-solid';
-import { readFileSync } from 'fs';
-import { mergeAndConcat } from 'merge-anything';
-import { createRequire } from 'module';
-import solidRefresh from 'solid-refresh/babel';
-import type { Alias, AliasOptions, FilterPattern, Plugin } from 'vite';
-import { createFilter, version } from 'vite';
-import { crawlFrameworkPkgs } from 'vitefu';
+import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import * as babel from '@babel/core'
+import solid from 'babel-preset-solid'
+import { mergeAndConcat } from 'merge-anything'
+import solidRefresh from 'solid-refresh/babel'
+import type { Alias, AliasOptions, FilterPattern, Plugin } from 'vite'
+import { createFilter, version } from 'vite'
+import { crawlFrameworkPkgs } from 'vitefu'
 
-const require = createRequire(import.meta.url);
+const require = createRequire(import.meta.url)
 
-const runtimePublicPath = '/@solid-refresh';
-const runtimeFilePath = require.resolve('solid-refresh/dist/solid-refresh.mjs');
-const runtimeCode = readFileSync(runtimeFilePath, 'utf-8');
+const runtimePublicPath = '/@solid-refresh'
+const runtimeFilePath = require.resolve('solid-refresh/dist/solid-refresh.mjs')
+const runtimeCode = readFileSync(runtimeFilePath, 'utf-8')
 
-const isVite6 = version.startsWith('6.');
+const isVite6 = version.startsWith('6.')
 
 /** Possible options for the extensions property */
 export interface ExtensionOptions {
-  typescript?: boolean;
+  typescript?: boolean
 }
 
 /** Configuration options for vite-plugin-solid. */
@@ -27,12 +27,12 @@ export interface Options {
    * A [picomatch](https://github.com/micromatch/picomatch) pattern, or array of patterns, which specifies the files
    * the plugin should operate on.
    */
-  include?: FilterPattern;
+  include?: FilterPattern
   /**
    * A [picomatch](https://github.com/micromatch/picomatch) pattern, or array of patterns, which specifies the files
    * to be ignored by the plugin.
    */
-  exclude?: FilterPattern;
+  exclude?: FilterPattern
   /**
    * This will inject solid-js/dev in place of solid-js in dev mode. Has no
    * effect in prod. If set to `false`, it won't inject it in dev. This is
@@ -40,13 +40,13 @@ export interface Options {
    *
    * @default true
    */
-  dev?: boolean;
+  dev?: boolean
   /**
    * This will force SSR code in the produced files.
    *
    * @default false
    */
-  ssr?: boolean;
+  ssr?: boolean
 
   /**
    * This will inject HMR runtime in dev mode. Has no effect in prod. If
@@ -54,14 +54,14 @@ export interface Options {
    *
    * @default true
    */
-  hot?: boolean;
+  hot?: boolean
   /**
    * This registers additional extensions that should be processed by
    * vite-plugin-solid.
    *
    * @default undefined
    */
-  extensions?: (string | [string, ExtensionOptions])[];
+  extensions?: Array<string | [string, ExtensionOptions]>
   /**
    * Pass any additional babel transform options. They will be merged with
    * the transformations required by Solid.
@@ -71,7 +71,7 @@ export interface Options {
   babel?:
     | babel.TransformOptions
     | ((source: string, id: string, ssr: boolean) => babel.TransformOptions)
-    | ((source: string, id: string, ssr: boolean) => Promise<babel.TransformOptions>);
+    | ((source: string, id: string, ssr: boolean) => Promise<babel.TransformOptions>)
   /**
    * Pass any additional [babel-plugin-jsx-dom-expressions](https://github.com/ryansolid/dom-expressions/tree/main/packages/babel-plugin-jsx-dom-expressions#plugin-options).
    * They will be merged with the defaults sets by [babel-preset-solid](https://github.com/solidjs/solid/blob/main/packages/babel-preset-solid/index.js#L8-L25).
@@ -85,14 +85,14 @@ export interface Options {
      *
      * @default false
      */
-    omitNestedClosingTags?: boolean;
+    omitNestedClosingTags?: boolean
 
     /**
      * The name of the runtime module to import the methods from.
      *
      * @default "solid-js/web"
      */
-    moduleName?: string;
+    moduleName?: string
 
     /**
      * The output mode of the compiler.
@@ -103,21 +103,21 @@ export interface Options {
      *
      * @default "dom"
      */
-    generate?: 'ssr' | 'dom' | 'universal';
+    generate?: 'ssr' | 'dom' | 'universal'
 
     /**
      * Indicate whether the output should contain hydratable markers.
      *
      * @default false
      */
-    hydratable?: boolean;
+    hydratable?: boolean
 
     /**
      * Boolean to indicate whether to enable automatic event delegation on camelCase.
      *
      * @default true
      */
-    delegateEvents?: boolean;
+    delegateEvents?: boolean
 
     /**
      * Boolean indicates whether smart conditional detection should be used.
@@ -125,7 +125,7 @@ export interface Options {
      *
      * @default true
      */
-    wrapConditionals?: boolean;
+    wrapConditionals?: boolean
 
     /**
      * Boolean indicates whether to set current render context on Custom Elements and slots.
@@ -133,7 +133,7 @@ export interface Options {
      *
      * @default true
      */
-    contextToCustomElements?: boolean;
+    contextToCustomElements?: boolean
 
     /**
      * Array of Component exports from module, that aren't included by default with the library.
@@ -141,47 +141,47 @@ export interface Options {
      *
      * @default ["For","Show","Switch","Match","Suspense","SuspenseList","Portal","Index","Dynamic","ErrorBoundary"]
      */
-    builtIns?: string[];
-  };
+    builtIns?: Array<string>
+  }
 }
 
 function getExtension(filename: string): string {
-  const index = filename.lastIndexOf('.');
-  return index < 0 ? '' : filename.substring(index).replace(/\?.+$/, '');
+  const index = filename.lastIndexOf('.')
+  return index < 0 ? '' : filename.substring(index).replace(/\?.+$/, '')
 }
 function containsSolidField(fields: Record<string, any>) {
-  const keys = Object.keys(fields);
+  const keys = Object.keys(fields)
   for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    if (key === 'solid') return true;
+    const key = keys[i]
+    if (key === 'solid') return true
     if (typeof fields[key] === 'object' && fields[key] != null && containsSolidField(fields[key]))
-      return true;
+      return true
   }
-  return false;
+  return false
 }
 
-function getJestDomExport(setupFiles: string[]) {
+function getJestDomExport(setupFiles: Array<string>) {
   return setupFiles?.some((path) => /jest-dom/.test(path))
     ? undefined
     : ['@testing-library/jest-dom/vitest', '@testing-library/jest-dom/extend-expect'].find(
         (path) => {
           try {
-            require.resolve(path);
-            return true;
+            require.resolve(path)
+            return true
           } catch (e) {
-            return false;
+            return false
           }
         },
-      );
+      )
 }
 
 export default function solidPlugin(options: Partial<Options> = {}): Plugin {
-  const filter = createFilter(options.include, options.exclude);
+  const filter = createFilter(options.include, options.exclude)
 
-  let needHmr = false;
-  let replaceDev = false;
-  let projectRoot = process.cwd();
-  let isTestMode = false;
+  let needHmr = false
+  let replaceDev = false
+  let projectRoot = process.cwd()
+  let isTestMode = false
 
   return {
     name: 'solid',
@@ -189,38 +189,38 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
 
     async config(userConfig, { command }) {
       // We inject the dev mode only if the user explicitly wants it or if we are in dev (serve) mode
-      replaceDev = options.dev === true || (options.dev !== false && command === 'serve');
-      projectRoot = userConfig.root;
-      isTestMode = userConfig.mode === 'test';
+      replaceDev = options.dev === true || (options.dev !== false && command === 'serve')
+      projectRoot = userConfig.root
+      isTestMode = userConfig.mode === 'test'
 
-      if (!userConfig.resolve) userConfig.resolve = {};
-      userConfig.resolve.alias = normalizeAliases(userConfig.resolve && userConfig.resolve.alias);
+      if (!userConfig.resolve) userConfig.resolve = {}
+      userConfig.resolve.alias = normalizeAliases(userConfig.resolve?.alias)
 
       const solidPkgsConfig = await crawlFrameworkPkgs({
         viteUserConfig: userConfig,
         root: projectRoot || process.cwd(),
         isBuild: command === 'build',
         isFrameworkPkgByJson(pkgJson) {
-          return containsSolidField(pkgJson.exports || {});
+          return containsSolidField(pkgJson.exports || {})
         },
-      });
+      })
 
       // fix for bundling dev in production
       const nestedDeps = replaceDev
         ? ['solid-js', 'solid-js/web', 'solid-js/store', 'solid-js/html', 'solid-js/h']
-        : [];
+        : []
 
-      const userTest = (userConfig as any).test ?? {};
-      const test = {} as any;
+      const userTest = (userConfig as any).test ?? {}
+      const test = {} as any
       if (userConfig.mode === 'test') {
         // to simplify the processing of the config, we normalize the setupFiles to an array
-        const userSetupFiles: string[] =
+        const userSetupFiles: Array<string> =
           typeof userTest.setupFiles === 'string'
             ? [userTest.setupFiles]
-            : userTest.setupFiles || [];
+            : userTest.setupFiles || []
 
         if (!userTest.environment && !options.ssr) {
-          test.environment = 'jsdom';
+          test.environment = 'jsdom'
         }
 
         if (
@@ -228,14 +228,14 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
             /solid-js/.test(item.toString()),
           )
         ) {
-          test.server = { deps: { external: [/solid-js/] } };
+          test.server = { deps: { external: [/solid-js/] } }
         }
         if (!userTest.browser?.enabled) {
           // vitest browser mode already has bundled jest-dom assertions
           // https://main.vitest.dev/guide/browser/assertion-api.html#assertion-api
-          const jestDomImport = getJestDomExport(userSetupFiles);
+          const jestDomImport = getJestDomExport(userSetupFiles)
           if (jestDomImport) {
-            test.setupFiles = [jestDomImport];
+            test.setupFiles = [jestDomImport]
           }
         }
       }
@@ -263,20 +263,20 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
         },
         ssr: solidPkgsConfig.ssr,
         ...(test.server ? { test } : {}),
-      };
+      }
     },
 
     // @ts-ignore This hook only works in Vite 6
     async configEnvironment(name, config, opts) {
-      config.resolve ??= {};
+      config.resolve ??= {}
       // Emulate Vite default fallback for `resolve.conditions` if not set
       if (config.resolve.conditions == null) {
         // @ts-ignore These exports only exist in Vite 6
-        const { defaultClientConditions, defaultServerConditions } = await import('vite');
+        const { defaultClientConditions, defaultServerConditions } = await import('vite')
         if (config.consumer === 'client' || name === 'client' || opts.isSsrTargetWebworker) {
-          config.resolve.conditions = [...defaultClientConditions];
+          config.resolve.conditions = [...defaultClientConditions]
         } else {
-          config.resolve.conditions = [...defaultServerConditions];
+          config.resolve.conditions = [...defaultServerConditions]
         }
       }
       config.resolve.conditions = [
@@ -284,53 +284,53 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
         ...(replaceDev ? ['development'] : []),
         ...(isTestMode && !opts.isSsrTargetWebworker ? ['browser'] : []),
         ...config.resolve.conditions,
-      ];
+      ]
     },
 
     configResolved(config) {
-      needHmr = config.command === 'serve' && config.mode !== 'production' && options.hot !== false;
+      needHmr = config.command === 'serve' && config.mode !== 'production' && options.hot !== false
     },
 
     resolveId(id) {
-      if (id === runtimePublicPath) return id;
+      if (id === runtimePublicPath) return id
     },
 
     load(id) {
-      if (id === runtimePublicPath) return runtimeCode;
+      if (id === runtimePublicPath) return runtimeCode
     },
 
     async transform(source, id, transformOptions) {
-      const isSsr = transformOptions && transformOptions.ssr;
-      const currentFileExtension = getExtension(id);
+      const isSsr = transformOptions?.ssr
+      const currentFileExtension = getExtension(id)
 
-      const extensionsToWatch = options.extensions || [];
+      const extensionsToWatch = options.extensions || []
       const allExtensions = extensionsToWatch.map((extension) =>
         // An extension can be a string or a tuple [extension, options]
         typeof extension === 'string' ? extension : extension[0],
-      );
+      )
 
       if (!filter(id)) {
-        return null;
+        return null
       }
 
-      id = id.replace(/\?.*$/, '');
+      id = id.replace(/\?.*$/, '')
 
       if (!(/\.[mc]?[tj]sx$/i.test(id) || allExtensions.includes(currentFileExtension))) {
-        return null;
+        return null
       }
 
-      const inNodeModules = /node_modules/.test(id);
+      const inNodeModules = /node_modules/.test(id)
 
-      let solidOptions: { generate: 'ssr' | 'dom'; hydratable: boolean };
+      let solidOptions: { generate: 'ssr' | 'dom'; hydratable: boolean }
 
       if (options.ssr) {
         if (isSsr) {
-          solidOptions = { generate: 'ssr', hydratable: true };
+          solidOptions = { generate: 'ssr', hydratable: true }
         } else {
-          solidOptions = { generate: 'dom', hydratable: true };
+          solidOptions = { generate: 'dom', hydratable: true }
         }
       } else {
-        solidOptions = { generate: 'dom', hydratable: false };
+        solidOptions = { generate: 'dom', hydratable: false }
       }
 
       // We need to know if the current file extension has a typescript options tied to it
@@ -338,20 +338,20 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
         /\.[mc]?tsx$/i.test(id) ||
         extensionsToWatch.some((extension) => {
           if (typeof extension === 'string') {
-            return extension.includes('tsx');
+            return extension.includes('tsx')
           }
 
-          const [extensionName, extensionOptions] = extension;
-          if (extensionName !== currentFileExtension) return false;
+          const [extensionName, extensionOptions] = extension
+          if (extensionName !== currentFileExtension) return false
 
-          return extensionOptions.typescript;
-        });
+          return extensionOptions.typescript
+        })
       const plugins: NonNullable<NonNullable<babel.TransformOptions['parserOpts']>['plugins']> = [
         'jsx',
-      ];
+      ]
 
       if (shouldBeProcessedWithTypescript) {
-        plugins.push('typescript');
+        plugins.push('typescript')
       }
 
       const opts: babel.TransformOptions = {
@@ -367,29 +367,28 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
         parserOpts: {
           plugins,
         },
-      };
+      }
 
       // Default value for babel user options
-      let babelUserOptions: babel.TransformOptions = {};
+      let babelUserOptions: babel.TransformOptions = {}
 
       if (options.babel) {
         if (typeof options.babel === 'function') {
-          const babelOptions = options.babel(source, id, isSsr);
-          babelUserOptions = babelOptions instanceof Promise ? await babelOptions : babelOptions;
+          const babelOptions = options.babel(source, id, isSsr)
+          babelUserOptions = babelOptions instanceof Promise ? await babelOptions : babelOptions
         } else {
-          babelUserOptions = options.babel;
+          babelUserOptions = options.babel
         }
-
       }
 
-      const babelOptions = mergeAndConcat(babelUserOptions, opts) as babel.TransformOptions;
+      const babelOptions = mergeAndConcat(babelUserOptions, opts) as babel.TransformOptions
       console.log(JSON.stringify(babelOptions, null, 2))
 
-      const { code, map } = await babel.transformAsync(source, babelOptions);
+      const { code, map } = await babel.transformAsync(source, babelOptions)
 
-      return { code, map };
+      return { code, map }
     },
-  };
+  }
 }
 
 /**
@@ -398,8 +397,8 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
  *
  * eg: alias: { '@': 'src/' } => [{ find: '@', replacement: 'src/' }]
  */
-function normalizeAliases(alias: AliasOptions = []): Alias[] {
+function normalizeAliases(alias: AliasOptions = []): Array<Alias> {
   return Array.isArray(alias)
     ? alias
-    : Object.entries(alias).map(([find, replacement]) => ({ find, replacement }));
+    : Object.entries(alias).map(([find, replacement]) => ({ find, replacement }))
 }

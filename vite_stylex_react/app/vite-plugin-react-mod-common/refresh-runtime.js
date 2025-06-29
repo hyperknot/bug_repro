@@ -13,9 +13,9 @@ const REACT_MEMO_TYPE = Symbol.for('react.memo')
 
 // We never remove these associations.
 // It's OK to reference families, but use WeakMap/Set for types.
-let allFamiliesByID = new Map()
-let allFamiliesByType = new WeakMap()
-let allSignaturesByType = new WeakMap()
+const allFamiliesByID = new Map()
+const allFamiliesByType = new WeakMap()
+const allSignaturesByType = new WeakMap()
 
 // This WeakMap is read by React, so we only put families
 // that have actually been edited here. This keeps checks fast.
@@ -38,7 +38,7 @@ const failedRoots = new Set()
 // We also remember the last element for every root.
 // It needs to be weak because we do this even for roots that failed to mount.
 // If there is no WeakMap, we won't attempt to do retrying.
-let rootElements = new WeakMap()
+const rootElements = new WeakMap()
 let isPerformingRefresh = false
 
 function computeFullKey(signature) {
@@ -77,7 +77,7 @@ function computeFullKey(signature) {
     if (nestedHookSignature.forceReset) {
       signature.forceReset = true
     }
-    fullKey += '\n---\n' + nestedHookKey
+    fullKey += `\n---\n${nestedHookKey}`
   }
 
   signature.fullKey = fullKey
@@ -105,7 +105,7 @@ function haveEqualSignatures(prevType, nextType) {
 }
 
 function isReactClass(type) {
-  return type.prototype && type.prototype.isReactComponent
+  return type.prototype?.isReactComponent
 }
 
 function canPreserveStateBetween(prevType, nextType) {
@@ -190,9 +190,7 @@ function performReactRefresh() {
     failedRootsSnapshot.forEach((root) => {
       const helpers = helpersByRootSnapshot.get(root)
       if (helpers === undefined) {
-        throw new Error(
-          'Could not find helpers for a root. This is a bug in React Refresh.',
-        )
+        throw new Error('Could not find helpers for a root. This is a bug in React Refresh.')
       }
       if (!failedRoots.has(root)) {
         // No longer failed.
@@ -217,9 +215,7 @@ function performReactRefresh() {
     mountedRootsSnapshot.forEach((root) => {
       const helpers = helpersByRootSnapshot.get(root)
       if (helpers === undefined) {
-        throw new Error(
-          'Could not find helpers for a root. This is a bug in React Refresh.',
-        )
+        throw new Error('Could not find helpers for a root. This is a bug in React Refresh.')
       }
       if (!mountedRoots.has(root)) {
         // No longer mounted.
@@ -273,10 +269,10 @@ function register(type, id) {
   if (typeof type === 'object' && type !== null) {
     switch (getProperty(type, '$$typeof')) {
       case REACT_FORWARD_REF_TYPE:
-        register(type.render, id + '$render')
+        register(type.render, `${id}$render`)
         break
       case REACT_MEMO_TYPE:
-        register(type.type, id + '$type')
+        register(type.type, `${id}$type`)
         break
     }
   }
@@ -339,7 +335,7 @@ export function injectIntoGlobalHook(globalObject) {
     // This isn't a real property on the hook, but it can be set to opt out
     // of DevTools integration and associated warnings and logs.
     // Using console['warn'] to evade Babel and ESLint
-    console['warn'](
+    console.warn(
       'Something has shimmed the React DevTools global hook (__REACT_DEVTOOLS_GLOBAL_HOOK__). ' +
         'Fast Refresh is not compatible with this shim and will be disabled.',
     )
@@ -405,8 +401,7 @@ export function injectIntoGlobalHook(globalObject) {
           alternate.memoizedState.element != null &&
           mountedRoots.has(root)
 
-        const isMounted =
-          current.memoizedState != null && current.memoizedState.element != null
+        const isMounted = current.memoizedState != null && current.memoizedState.element != null
 
         if (!wasMounted && isMounted) {
           // Mount a new root.
@@ -467,7 +462,7 @@ export function createSignatureFunctionForTransform() {
   let savedType
   let hasCustomHooks
   let didCollectHooks = false
-  return function (type, key, forceReset, getCustomHooks) {
+  return (type, key, forceReset, getCustomHooks) => {
     if (typeof key === 'string') {
       // We're in the initial phase that associates signatures
       // with the functions. Note this may be called multiple times
@@ -481,21 +476,17 @@ export function createSignatureFunctionForTransform() {
       // Set the signature for all types (even wrappers!) in case
       // they have no signatures of their own. This is to prevent
       // problems like https://github.com/facebook/react/issues/20417.
-      if (
-        type != null &&
-        (typeof type === 'function' || typeof type === 'object')
-      ) {
+      if (type != null && (typeof type === 'function' || typeof type === 'object')) {
         setSignature(type, key, forceReset, getCustomHooks)
       }
       return type
-    } else {
-      // We're in the _s() call without arguments, which means
-      // this is the time to collect custom Hook signatures.
-      // Only do this once. This path is hot and runs *inside* every render!
-      if (!didCollectHooks && hasCustomHooks) {
-        didCollectHooks = true
-        collectCustomHooksForSignature(savedType)
-      }
+    }
+    // We're in the _s() call without arguments, which means
+    // this is the time to collect custom Hook signatures.
+    // Only do this once. This path is hot and runs *inside* every render!
+    if (!didCollectHooks && hasCustomHooks) {
+      didCollectHooks = true
+      collectCustomHooksForSignature(savedType)
     }
   }
 }
@@ -550,7 +541,7 @@ function isLikelyComponentType(type) {
  */
 
 export function getRefreshReg(filename) {
-  return (type, id) => register(type, filename + ' ' + id)
+  return (type, id) => register(type, `${filename} ${id}`)
 }
 
 // Taken from https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/lib/runtime/RefreshUtils.js#L141
@@ -564,7 +555,7 @@ export function registerExportsForReactRefresh(filename, moduleExports) {
       // shadow a local component name: https://github.com/vitejs/vite-plugin-react/issues/116
       // The register function has an identity check to not register twice the same component,
       // so this is safe to not used the same key here.
-      register(exportValue, filename + ' export ' + key)
+      register(exportValue, `${filename} export ${key}`)
     }
   }
 }
@@ -586,28 +577,12 @@ const enqueueUpdate = debounce(async () => {
   performReactRefresh()
 }, 16)
 
-export function validateRefreshBoundaryAndEnqueueUpdate(
-  id,
-  prevExports,
-  nextExports,
-) {
+export function validateRefreshBoundaryAndEnqueueUpdate(id, prevExports, nextExports) {
   const ignoredExports = window.__getReactRefreshIgnoredExports?.({ id }) ?? []
-  if (
-    predicateOnExport(
-      ignoredExports,
-      prevExports,
-      (key) => key in nextExports,
-    ) !== true
-  ) {
+  if (predicateOnExport(ignoredExports, prevExports, (key) => key in nextExports) !== true) {
     return 'Could not Fast Refresh (export removed)'
   }
-  if (
-    predicateOnExport(
-      ignoredExports,
-      nextExports,
-      (key) => key in prevExports,
-    ) !== true
-  ) {
+  if (predicateOnExport(ignoredExports, nextExports, (key) => key in prevExports) !== true) {
     return 'Could not Fast Refresh (new export)'
   }
 
@@ -633,7 +608,7 @@ function predicateOnExport(ignoredExports, moduleExports, predicate) {
     if (key === '__esModule') continue
     if (ignoredExports.includes(key)) continue
     const desc = Object.getOwnPropertyDescriptor(moduleExports, key)
-    if (desc && desc.get) return key
+    if (desc?.get) return key
     if (!predicate(key, moduleExports[key])) return key
   }
   return true

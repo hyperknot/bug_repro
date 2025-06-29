@@ -1,7 +1,7 @@
+import { readFileSync } from 'node:fs'
 import type * as babelCore from '@babel/core'
 import type { ParserOptions, TransformOptions } from '@babel/core'
-import { exactRegex, makeIdFiltersToMatchWithQuery, } from '@rolldown/pluginutils'
-import { readFileSync } from 'node:fs'
+import { exactRegex, makeIdFiltersToMatchWithQuery } from '@rolldown/pluginutils'
 import type { Plugin, PluginOption, ResolvedConfig } from 'vite'
 import * as vite from 'vite'
 import { createFilter } from 'vite'
@@ -12,8 +12,6 @@ import {
   runtimePublicPath,
   silenceUseClientWarning,
 } from './vite-plugin-react-mod-common'
-
-
 
 const refreshRuntimePath = './vite-plugin-react-mod-common/react-modrefresh-runtime.js'
 
@@ -43,9 +41,7 @@ export interface Options {
   /**
    * Babel configuration applied in both dev and prod.
    */
-  babel?:
-    | BabelOptions
-    | ((id: string, options: { ssr?: boolean }) => BabelOptions)
+  babel?: BabelOptions | ((id: string, options: { ssr?: boolean }) => BabelOptions)
   /**
    * React Fast Refresh runtime URL prefix.
    * Useful in a module federation context to enable HMR by specifying
@@ -63,12 +59,7 @@ export interface Options {
 
 export type BabelOptions = Omit<
   TransformOptions,
-  | 'ast'
-  | 'filename'
-  | 'root'
-  | 'sourceFileName'
-  | 'sourceMaps'
-  | 'inputSourceMap'
+  'ast' | 'filename' | 'root' | 'sourceFileName' | 'sourceMaps' | 'inputSourceMap'
 >
 
 /**
@@ -76,11 +67,11 @@ export type BabelOptions = Omit<
  * an `api.reactBabel` method.
  */
 export interface ReactBabelOptions extends BabelOptions {
-  plugins: Extract<BabelOptions['plugins'], any[]>
-  presets: Extract<BabelOptions['presets'], any[]>
-  overrides: Extract<BabelOptions['overrides'], any[]>
+  plugins: Extract<BabelOptions['plugins'], Array<any>>
+  presets: Extract<BabelOptions['presets'], Array<any>>
+  overrides: Extract<BabelOptions['overrides'], Array<any>>
   parserOpts: ParserOptions & {
-    plugins: Extract<ParserOptions['plugins'], any[]>
+    plugins: Extract<ParserOptions['plugins'], Array<any>>
   }
 }
 
@@ -102,7 +93,7 @@ export type ViteReactPluginApi = {
 const defaultIncludeRE = /\.[tj]sx?$/
 const tsRE = /\.tsx?$/
 
-export default function viteReact(opts: Options = {}): PluginOption[] {
+export default function viteReact(opts: Options = {}): Array<PluginOption> {
   const include = opts.include ?? defaultIncludeRE
   const exclude = opts.exclude
   const filter = createFilter(include, exclude)
@@ -141,33 +132,28 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
               },
             },
           }
-        } else {
-          return {
-            esbuild: {
-              jsx: 'transform',
-            },
-          }
         }
-      } else {
         return {
           esbuild: {
-            jsx: 'automatic',
-            jsxImportSource: opts.jsxImportSource,
+            jsx: 'transform',
           },
-          optimizeDeps:
-            'rolldownVersion' in vite
-              ? { rollupOptions: { jsx: { mode: 'automatic' } } }
-              : { esbuildOptions: { jsx: 'automatic' } },
         }
+      }
+      return {
+        esbuild: {
+          jsx: 'automatic',
+          jsxImportSource: opts.jsxImportSource,
+        },
+        optimizeDeps:
+          'rolldownVersion' in vite
+            ? { rollupOptions: { jsx: { mode: 'automatic' } } }
+            : { esbuildOptions: { jsx: 'automatic' } },
       }
     },
     configResolved(config) {
       projectRoot = config.root
       isProduction = config.isProduction
-      skipFastRefresh =
-        isProduction ||
-        config.command === 'build' ||
-        config.server.hmr === false
+      skipFastRefresh = isProduction || config.command === 'build' || config.server.hmr === false
 
       if ('jsxPure' in opts) {
         config.logger.warnOnce(
@@ -175,7 +161,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
         )
       }
 
-      const hooks: ReactBabelHook[] = config.plugins
+      const hooks: Array<ReactBabelHook> = config.plugins
         .map((plugin) => plugin.api?.reactBabel)
         .filter(defined)
 
@@ -214,9 +200,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
         id: {
           include: makeIdFiltersToMatchWithQuery(include),
           exclude: [
-            ...(exclude
-              ? makeIdFiltersToMatchWithQuery(ensureArray(exclude))
-              : []),
+            ...(exclude ? makeIdFiltersToMatchWithQuery(ensureArray(exclude)) : []),
             /\/node_modules\//,
           ],
         },
@@ -231,9 +215,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
         const babelOptions = (() => {
           if (staticBabelOptions) return staticBabelOptions
           const newBabelOptions = createBabelOptions(
-            typeof opts.babel === 'function'
-              ? opts.babel(id, { ssr })
-              : opts.babel,
+            typeof opts.babel === 'function' ? opts.babel(id, { ssr }) : opts.babel,
           )
           runPluginOverrides?.(newBabelOptions, { id, ssr })
           return newBabelOptions
@@ -247,13 +229,9 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
           (isJSX ||
             (opts.jsxRuntime === 'classic'
               ? importReactRE.test(code)
-              : code.includes(jsxImportDevRuntime) ||
-                code.includes(jsxImportRuntime)))
+              : code.includes(jsxImportDevRuntime) || code.includes(jsxImportRuntime)))
         if (useFastRefresh) {
-          plugins.push([
-            await loadPlugin('react-refresh/babel'),
-            { skipEnvCheck: true },
-          ])
+          plugins.push([await loadPlugin('react-refresh/babel'), { skipEnvCheck: true }])
         }
 
         if (opts.jsxRuntime === 'classic' && isJSX) {
@@ -311,7 +289,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
         }
         console.log(JSON.stringify(babelOptions, null, 2))
 
-        const result = await babel.transformAsync(code,babelConfig as any)
+        const result = await babel.transformAsync(code, babelConfig as any)
 
         if (result) {
           if (!useFastRefresh) {
@@ -329,18 +307,11 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
     },
   }
 
-  const dependencies = [
-    'react',
-    'react-dom',
-    jsxImportDevRuntime,
-    jsxImportRuntime,
-  ]
-  const staticBabelPlugins =
-    typeof opts.babel === 'object' ? opts.babel?.plugins ?? [] : []
+  const dependencies = ['react', 'react-dom', jsxImportDevRuntime, jsxImportRuntime]
+  const staticBabelPlugins = typeof opts.babel === 'object' ? (opts.babel?.plugins ?? []) : []
   const reactCompilerPlugin = getReactCompilerPlugin(staticBabelPlugins)
   if (reactCompilerPlugin != null) {
-    const reactCompilerRuntimeModule =
-      getReactCompilerRuntimeModule(reactCompilerPlugin)
+    const reactCompilerRuntimeModule = getReactCompilerRuntimeModule(reactCompilerPlugin)
     dependencies.push(reactCompilerRuntimeModule)
   }
 
@@ -392,10 +363,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
 
 viteReact.preambleCode = preambleCode
 
-function canSkipBabel(
-  plugins: ReactBabelOptions['plugins'],
-  babelOptions: ReactBabelOptions,
-) {
+function canSkipBabel(plugins: ReactBabelOptions['plugins'], babelOptions: ReactBabelOptions) {
   return !(
     plugins.length ||
     babelOptions.presets.length ||
@@ -449,9 +417,7 @@ function getReactCompilerPlugin(plugins: ReactBabelOptions['plugins']) {
 type ReactCompilerRuntimeModule =
   | 'react/compiler-runtime' // from react namespace
   | 'react-compiler-runtime' // npm package
-function getReactCompilerRuntimeModule(
-  plugin: babelCore.PluginItem,
-): ReactCompilerRuntimeModule {
+function getReactCompilerRuntimeModule(plugin: babelCore.PluginItem): ReactCompilerRuntimeModule {
   let moduleName: ReactCompilerRuntimeModule = 'react/compiler-runtime'
   if (Array.isArray(plugin)) {
     if (plugin[1]?.target === '17' || plugin[1]?.target === '18') {
@@ -464,6 +430,6 @@ function getReactCompilerRuntimeModule(
   return moduleName
 }
 
-function ensureArray<T>(value: T | T[]): T[] {
+function ensureArray<T>(value: T | Array<T>): Array<T> {
   return Array.isArray(value) ? value : [value]
 }
