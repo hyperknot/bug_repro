@@ -7,7 +7,7 @@ import { createFilter, defineConfig, type Plugin } from 'vite'
 import solid from 'vite-plugin-solid'
 
 // Shared StyleX Babel configuration
-const STYLEX_BABEL_CONFIG: TransformOptions = {
+const stylexBabelConfig: TransformOptions = {
   presets: ['@babel/preset-typescript'],
   plugins: [
     [
@@ -32,24 +32,23 @@ function stylexPlugin(): Plugin {
   const filter = createFilter('**/*.{js,ts,jsx,tsx}', 'node_modules/**')
 
   return {
-    name: 'stylex-transform',
+    name: 'stylex-js-transform',
     enforce: 'pre',
     async transform(code: string, id: string) {
       if (!filter(id)) return null
 
-      try {
-        const result = await babel.transformAsync(code, {
-          ...STYLEX_BABEL_CONFIG,
-          filename: id,
-          sourceMaps: true,
-          babelrc: false,
-          configFile: false,
-        })
-
-        return result?.code ? { code: result.code, map: result.map } : null
-      } catch (error) {
-        this.error(`StyleX transform failed for ${id}: ${error}`)
+      // skip files without StyleX usage
+      if (!code.includes('stylex')) {
+        return null
       }
+
+      const result = await babel.transformAsync(code, {
+        ...stylexBabelConfig,
+        filename: id,
+        sourceMaps: true,
+      })
+
+      return result?.code ? { code: result.code, map: result.map } : null
     },
   }
 }
@@ -65,7 +64,7 @@ export default defineConfig({
     postcss: {
       plugins: [
         stylexPostcss({
-          babelConfig: STYLEX_BABEL_CONFIG,
+          babelConfig: stylexBabelConfig,
           include: [
             'src/**/*.{ts,tsx}',
             './*.{ts,tsx}',
