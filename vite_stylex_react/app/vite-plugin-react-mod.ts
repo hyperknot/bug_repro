@@ -282,7 +282,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
         }
 
         const babel = await loadBabel()
-        const result = await babel.transformAsync(code, {
+        const babelConfig = {
           ...babelOptions,
           root: projectRoot,
           filename: id,
@@ -308,7 +308,10 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
           },
           plugins,
           sourceMaps: true,
-        })
+        }
+        console.log(JSON.stringify(babelOptions, null, 2))
+
+        const result = await babel.transformAsync(code,babelConfig as any)
 
         if (result) {
           if (!useFastRefresh) {
