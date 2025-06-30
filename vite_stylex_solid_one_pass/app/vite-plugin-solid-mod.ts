@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
-import { isDate } from 'node:util/types'
 import * as babel from '@babel/core'
 // @ts-ignore
 import solid from 'babel-preset-solid'

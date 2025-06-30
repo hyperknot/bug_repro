@@ -384,6 +384,7 @@ export default function solidPlugin(options: Partial<Options> = {}): Plugin {
 
       const babelOptions = mergeAndConcat(babelUserOptions, opts) as babel.TransformOptions
 
+      console.log(JSON.stringify(babelOptions, null, 2))
       const { code, map } = await babel.transformAsync(source, babelOptions)
 
       return { code, map }
