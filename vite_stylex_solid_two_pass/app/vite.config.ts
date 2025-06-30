@@ -63,7 +63,11 @@ export default defineConfig({
       '@alias': path.resolve('../alias'),
     },
   },
-  plugins: [stylexPlugin(), solid()],
+  plugins: [
+    //
+    stylexPlugin(),
+    solid(),
+  ],
   css: {
     postcss: {
       plugins: [
