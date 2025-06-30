@@ -62,6 +62,7 @@ export default defineConfig({
     alias: {
       '@alias': path.resolve('../alias'),
     },
+    dedupe: ['solid-js', '@stylexjs/stylex'],
   },
   plugins: [
     //
