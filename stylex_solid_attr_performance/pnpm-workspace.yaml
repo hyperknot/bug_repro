@@ -1,0 +1,7 @@
+packages:
+  - app
+  - workspace
+
+onlyBuiltDependencies:
+  - esbuild
+
