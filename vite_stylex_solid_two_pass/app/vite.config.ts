@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
 import * as babel from '@babel/core'
@@ -55,8 +57,8 @@ function stylexPlugin(): Plugin {
 
 export default defineConfig({
   build: {
-    // cssMinify: false,
-    // minify: false,
+    cssMinify: false,
+    minify: false,
   },
   resolve: {
     alias: {

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
 // @ts-ignore
@@ -29,13 +31,14 @@ const stylexBabelConfig: TransformOptions = {
 
 export default defineConfig({
   build: {
-    // cssMinify: false,
-    // minify: false,
+    cssMinify: false,
+    minify: false,
   },
   resolve: {
     alias: {
       '@alias': path.resolve('../alias'),
     },
+    dedupe: ['solid-js', '@stylexjs/stylex'],
   },
   plugins: [
     solid({

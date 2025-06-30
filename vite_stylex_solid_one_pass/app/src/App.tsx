@@ -43,15 +43,15 @@ function App() {
       <div {...stylex.props(styles.local)}>stylex local value - red if works</div>
       <div {...stylex.props(styles.srcVar)}>stylex var from ./src/ - green if works</div>
       <div {...stylex.props(styles.projVar)}>stylex var from ../ - orange if works</div>
-      {/**/}
+
       <div>JS var from ../outside: {outsideConst}</div>
       <div {...stylex.props(styles.outsideVar)}>stylex var from ../outside - purple if works</div>
       <OutsideComponent />
-      {/**/}
+
       <div>JS var from @alias: {aliasConst}</div>
       <div {...stylex.props(styles.aliasVar)}>stylex var from @alias - blue if works</div>
       <AliasComponent />
-      {/**/}
+
       <div>JS var from @repo/workspace: {workspaceConst}</div>
       <div {...stylex.props(styles.workspaceVar)}>
         stylex var from @repo/workspace - magenta if works
