@@ -6,6 +6,15 @@ settings:
 
 importers:
 
+  .:
+    devDependencies:
+      '@stylexjs/stylex':
+        specifier: ^0.13.1
+        version: 0.13.1
+      solid-js:
+        specifier: ^1.9.7
+        version: 1.9.7
+
   app:
     dependencies:
       '@babel/core':

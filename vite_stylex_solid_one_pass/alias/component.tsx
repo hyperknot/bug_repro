@@ -1,5 +1,5 @@
-// @ts-ignore
 import * as stylex from '@stylexjs/stylex'
+import { sx } from './styleUtils'
 
 import { aliasVars } from './vars.stylex'
 
@@ -11,6 +11,5 @@ const styles = stylex.create({
 })
 
 export function AliasComponent() {
-  // @ts-ignore
-  return <div {...stylex.props(styles.base)}>component from ../alias</div>
+  return <div {...sx(styles.base)}>component from ../alias</div>
 }
