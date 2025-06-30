@@ -1,9 +1,10 @@
 import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
+import * as babel from '@babel/core'
 // @ts-ignore
 import stylexPostcss from '@stylexjs/postcss-plugin'
-import { defineConfig } from 'vite'
-import solid from './vite-plugin-solid-mod'
+import react from '@vitejs/plugin-react'
+import { createFilter, defineConfig, type Plugin } from 'vite'
 
 // Shared StyleX Babel configuration
 const stylexBabelConfig: TransformOptions = {
@@ -27,6 +28,31 @@ const stylexBabelConfig: TransformOptions = {
   ],
 }
 
+function stylexPlugin(): Plugin {
+  const filter = createFilter('**/*.{js,ts,jsx,tsx}', 'node_modules/**')
+
+  return {
+    name: 'stylex-js-transform',
+    enforce: 'pre',
+    async transform(code: string, id: string) {
+      if (!filter(id)) return null
+
+      // skip files without StyleX usage
+      if (!code.includes('stylex')) {
+        return null
+      }
+
+      const result = await babel.transformAsync(code, {
+        ...stylexBabelConfig,
+        filename: id,
+        sourceMaps: true,
+      })
+
+      return result?.code ? { code: result.code, map: result.map } : null
+    },
+  }
+}
+
 export default defineConfig({
   build: {
     cssMinify: false,
@@ -36,13 +62,8 @@ export default defineConfig({
     alias: {
       '@alias': path.resolve('../alias'),
     },
-    dedupe: ['solid-js', '@stylexjs/stylex'],
   },
-  plugins: [
-    solid({
-      babel: stylexBabelConfig,
-    }),
-  ],
+  plugins: [stylexPlugin(), react()],
   css: {
     postcss: {
       plugins: [

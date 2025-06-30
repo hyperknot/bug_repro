@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
 import * as babel from '@babel/core'

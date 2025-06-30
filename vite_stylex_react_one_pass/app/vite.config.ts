@@ -1,10 +1,12 @@
 import path from 'node:path'
+import type { TransformOptions } from '@babel/core'
 // @ts-ignore
 import stylexPostcss from '@stylexjs/postcss-plugin'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-const stylexBabelConfig = {
+// Shared StyleX Babel configuration
+const stylexBabelConfig: TransformOptions = {
   presets: ['@babel/preset-typescript'],
   plugins: [
     [
