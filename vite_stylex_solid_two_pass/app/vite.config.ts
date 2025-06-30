@@ -54,6 +54,10 @@ function stylexPlugin(): Plugin {
 }
 
 export default defineConfig({
+  build: {
+    // cssMinify: false,
+    // minify: false,
+  },
   resolve: {
     alias: {
       '@alias': path.resolve('../alias'),
@@ -77,11 +81,4 @@ export default defineConfig({
       ],
     },
   },
-  // Only include build config if you actually need these settings
-  ...(process.env.NODE_ENV === 'development' && {
-    build: {
-      cssMinify: false,
-      minify: false,
-    },
-  }),
 })

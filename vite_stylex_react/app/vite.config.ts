@@ -1,10 +1,10 @@
 import path from 'node:path'
 // @ts-ignore
-import stylex from '@stylexjs/postcss-plugin'
+import stylexPostcss from '@stylexjs/postcss-plugin'
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import react from './vite-plugin-react-mod'
 
-const babelConfig = {
+const stylexBabelConfig = {
   presets: ['@babel/preset-typescript'],
   plugins: [
     [
@@ -16,9 +16,7 @@ const babelConfig = {
         treeshakeCompensation: true,
         unstable_moduleResolution: {
           type: 'commonJS',
-          // rootDir: '..',
         },
-        // rewriteAliases: true,
         aliases: {
           '@alias/*': path.resolve('../alias/*'),
         },
@@ -39,22 +37,20 @@ export default defineConfig({
   },
   plugins: [
     react({
-      babel: babelConfig,
+      babel: stylexBabelConfig,
     }),
   ],
   css: {
     postcss: {
       plugins: [
-        stylex({
-          babelConfig,
+        stylexPostcss({
+          babelConfig: stylexBabelConfig,
           include: [
-            //
-            path.resolve('src/**/*.{ts,tsx}'),
-            path.resolve('./*.{ts,tsx}'),
-
-            path.resolve('../outside/**/*.{ts,tsx}'),
-            path.resolve('../alias/**/*.{ts,tsx}'),
-            path.resolve('node_modules/@repo/workspace/**/*.{ts,tsx}'),
+            'src/**/*.{ts,tsx}',
+            './*.{ts,tsx}',
+            '../outside/**/*.{ts,tsx}',
+            '../alias/**/*.{ts,tsx}',
+            'node_modules/@repo/workspace/**/*.{ts,tsx}',
           ],
           useCSSLayers: true,
         }),

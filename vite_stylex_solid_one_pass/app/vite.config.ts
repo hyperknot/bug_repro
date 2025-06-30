@@ -1,16 +1,19 @@
 import path from 'node:path'
+import type { TransformOptions } from '@babel/core'
 // @ts-ignore
-import stylex from '@stylexjs/postcss-plugin'
+import stylexPostcss from '@stylexjs/postcss-plugin'
 import { defineConfig } from 'vite'
 import solid from './vite-plugin-solid-mod'
 
-const stylexBabelConfig = {
+// Shared StyleX Babel configuration
+const stylexBabelConfig: TransformOptions = {
   presets: ['@babel/preset-typescript'],
   plugins: [
     [
       '@stylexjs/babel-plugin',
       {
         dev: process.env.NODE_ENV === 'development',
+        test: process.env.NODE_ENV === 'test',
         runtimeInjection: false,
         treeshakeCompensation: true,
         unstable_moduleResolution: {
@@ -26,8 +29,8 @@ const stylexBabelConfig = {
 
 export default defineConfig({
   build: {
-    cssMinify: false,
-    minify: false,
+    // cssMinify: false,
+    // minify: false,
   },
   resolve: {
     alias: {
@@ -42,16 +45,14 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [
-        stylex({
+        stylexPostcss({
           babelConfig: stylexBabelConfig,
           include: [
-            //
-            path.resolve('src/**/*.{ts,tsx}'),
-            path.resolve('./*.{ts,tsx}'),
-
-            path.resolve('../outside/**/*.{ts,tsx}'),
-            path.resolve('../alias/**/*.{ts,tsx}'),
-            path.resolve('node_modules/@repo/workspace/**/*.{ts,tsx}'),
+            'src/**/*.{ts,tsx}',
+            './*.{ts,tsx}',
+            '../outside/**/*.{ts,tsx}',
+            '../alias/**/*.{ts,tsx}',
+            'node_modules/@repo/workspace/**/*.{ts,tsx}',
           ],
           useCSSLayers: true,
         }),
