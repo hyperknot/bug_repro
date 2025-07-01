@@ -38,9 +38,6 @@ importers:
       solid-refresh:
         specifier: ^0.7.5
         version: 0.7.5(solid-js@1.9.7)
-      vitefu:
-        specifier: ^1.0.7
-        version: 1.0.7(vite@6.3.5(@types/node@24.0.3))
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.27.1
