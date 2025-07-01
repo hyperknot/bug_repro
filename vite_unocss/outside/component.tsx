@@ -1,15 +1,3 @@
-import * as stylex from '@stylexjs/stylex'
-import { sx } from '@alias/styleUtils'
-
-import { outsideVars } from './vars.stylex'
-
-const styles = stylex.create({
-  base: {
-    background: '#ddd',
-    color: outsideVars.color,
-  },
-})
-
 export function OutsideComponent() {
-  return <div {...sx(styles.base)}>component from ../outside</div>
+  return <div class="text-outside text-base">Outside Component with purple text</div>
 }
