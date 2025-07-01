@@ -1,4 +1,3 @@
-import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
 import * as babel from '@babel/core'
 // @ts-ignore
@@ -19,9 +18,6 @@ const stylexBabelConfig: TransformOptions = {
         treeshakeCompensation: true,
         unstable_moduleResolution: {
           type: 'commonJS',
-        },
-        aliases: {
-          '@alias/*': path.resolve('../alias/*'),
         },
       },
     ],
@@ -58,12 +54,6 @@ export default defineConfig({
     cssMinify: false,
     minify: false,
   },
-  resolve: {
-    alias: {
-      '@alias': path.resolve('../alias'),
-    },
-    dedupe: ['solid-js', '@stylexjs/stylex'],
-  },
   plugins: [
     //
     stylexPlugin(),
@@ -74,13 +64,7 @@ export default defineConfig({
       plugins: [
         stylexPostcss({
           babelConfig: stylexBabelConfig,
-          include: [
-            'src/**/*.{ts,tsx}',
-            './*.{ts,tsx}',
-            '../outside/**/*.{ts,tsx}',
-            '../alias/**/*.{ts,tsx}',
-            'node_modules/@repo/workspace/**/*.{ts,tsx}',
-          ],
+          include: ['src/**/*.{ts,tsx}'],
           useCSSLayers: true,
         }),
       ],
