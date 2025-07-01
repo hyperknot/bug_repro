@@ -16,7 +16,11 @@ export function sx(...styles: Array<any>): HtmlAttributes {
   return attrs(stylex.props(...styles))
 }
 
-function attrs({ className, 'data-style-src': dataStyleSrc, style }: StylexProps): HtmlAttributes {
+export function attrs({
+  className,
+  'data-style-src': dataStyleSrc,
+  style,
+}: StylexProps): HtmlAttributes {
   const result: HtmlAttributes = {}
 
   // Convert className to class

@@ -5,12 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b ../tsconfig.json && vite build",
+    "build": "tsc -b tsconfig.json && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@babel/core": "^7.27.4",
-    "@repo/workspace": "workspace:*",
     "@stylexjs/stylex": "^0.13.1",
     "babel-preset-solid": "^1.9.6",
     "merge-anything": "^6.0.6",
