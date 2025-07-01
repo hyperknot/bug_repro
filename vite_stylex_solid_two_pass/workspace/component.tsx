@@ -1,5 +1,5 @@
 import * as stylex from '@stylexjs/stylex'
-import { sx } from '@alias/styleUtils'
+
 import { workspaceVars } from './vars.stylex'
 
 const styles = stylex.create({
@@ -10,5 +10,5 @@ const styles = stylex.create({
 })
 
 export function WorkspaceComponent() {
-  return <div {...sx(styles.base)}>component from ../workspace</div>
+  return <div {...stylex.props(styles.base)}>component from ../workspace</div>
 }

@@ -1,5 +1,4 @@
 import * as stylex from '@stylexjs/stylex'
-import { sx } from '@alias/styleUtils'
 
 import { outsideVars } from './vars.stylex'
 
@@ -11,5 +10,5 @@ const styles = stylex.create({
 })
 
 export function OutsideComponent() {
-  return <div {...sx(styles.base)}>component from ../outside</div>
+  return <div {...stylex.props(styles.base)}>component from ../outside</div>
 }
