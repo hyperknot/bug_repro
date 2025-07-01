@@ -29,8 +29,8 @@ function App() {
   console.log({ ...stylex.props(styles.local) })
   console.log({ ...stylex.attrs(styles.local) })
 
-  console.log({ ...stylex.props(styles.local, styles.dynamic('14px')) })
-  console.log({ ...stylex.attrs(styles.local, styles.dynamic('14px')) })
+  console.log({ ...stylex.props(styles.local, styles.dynamic(30)) })
+  console.log({ ...stylex.attrs(styles.local, styles.dynamic(30)) })
 
   return (
     <div>
@@ -38,24 +38,24 @@ function App() {
         sx local value - big red if works
       </div>
       <div {...sx(styles.srcVar)}>sx var from ./src/ - green if works</div>
-      <div {...sx(styles.projVar)} style="margin-eft: 14px;">
+      <div {...sx(styles.projVar)} style="margin-left: 30px;">
         sx var from ../ - orange if works
       </div>
-      <div {...sx(styles.local, styles.dynamic('15px'))}>
+      <div {...sx(styles.local, styles.dynamic(30))}>
         sx dynamic - 14px blue underlined if works
       </div>
 
       <div {...attrs(stylex.props(styles.local))}>attr local value - red if works</div>
       <div {...attrs(stylex.props(styles.srcVar))}>attr var from ./src/ - green if works</div>
       <div {...attrs(stylex.props(styles.projVar))}>attr var from ../ - orange if works</div>
-      <div {...attrs(stylex.props(styles.local, styles.dynamic('14px')))}>
+      <div {...attrs(stylex.props(styles.local, styles.dynamic(30)))}>
         attrs dynamic - 14px blue underlined if works
       </div>
 
       <div {...stylex.props(styles.local)}>props local value - red if works</div>
       <div {...stylex.props(styles.srcVar)}>props var from ./src/ - green if works</div>
       <div {...stylex.props(styles.projVar)}>props var from ../ - orange if works</div>
-      <div {...stylex.props(styles.local, styles.dynamic('14px'))}>
+      <div {...stylex.props(styles.local, styles.dynamic(30))}>
         props dynamic - 14px blue underlined if works
       </div>
 
