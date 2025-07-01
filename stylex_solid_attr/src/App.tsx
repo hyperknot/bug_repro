@@ -20,18 +20,20 @@ const styles = stylex.create({
 
   dynamic: (fontSize) => ({
     fontSize,
+    color: 'blue',
+    textDecoration: null,
   }),
 })
 
 function App() {
-  const inline = { color: 'blue', fontSize: '16px', textDecoration: 'underline' }
-
   return (
     <div>
       <div {...sx(styles.local)}>sx local value - big red if works</div>
       <div {...sx(styles.srcVar)}>sx var from ./src/ - green if works</div>
       <div {...sx(styles.projVar)}>sx var from ../ - orange if works</div>
-      <div {...sx(styles.local, inline)}>sx inline - small blue underlined if works</div>
+      <div {...sx(styles.local, styles.dynamic('14px'))}>
+        sx dynamic - 14px blue underlined if works
+      </div>
 
       <div {...attrs(stylex.props(styles.local))}>attr local value - red if works</div>
       <div {...attrs(stylex.props(styles.srcVar))}>attr var from ./src/ - green if works</div>
@@ -43,8 +45,8 @@ function App() {
       <div {...stylex.props(styles.local)}>props local value - red if works</div>
       <div {...stylex.props(styles.srcVar)}>props var from ./src/ - green if works</div>
       <div {...stylex.props(styles.projVar)}>props var from ../ - orange if works</div>
-      <div {...stylex.props(styles.local, styles.dynamic)}>
-        sx inline - small blue underlined if works
+      <div {...stylex.props(styles.local, styles.dynamic('14px'))}>
+        props dynamic - 14px blue underlined if works
       </div>
 
       <div {...stylex.attrs(styles.local)}>
@@ -56,8 +58,8 @@ function App() {
       <div {...stylex.attrs(styles.projVar)}>
         native attr (only works on 0.12) var from ../ - orange if works
       </div>
-      <div {...stylex.attrs(styles.local, inline)}>
-        native attr (only works on 0.12) inline - small blue underlined if works
+      <div {...stylex.attrs(styles.local, styles.dynamic('14px'))}>
+        native attr (only works on 0.12) dynamic - 14px blue underlined if works
       </div>
     </div>
   )
