@@ -26,8 +26,11 @@ const styles = stylex.create({
 })
 
 function App() {
-  console.log(stylex.props(styles.local, styles.dynamic('14px')))
-  console.log(stylex.attrs(styles.local, styles.dynamic('14px')))
+  console.log({ ...stylex.props(styles.local) })
+  console.log({ ...stylex.attrs(styles.local) })
+
+  console.log({ ...stylex.props(styles.local, styles.dynamic('14px')) })
+  console.log({ ...stylex.attrs(styles.local, styles.dynamic('14px')) })
 
   return (
     <div>
