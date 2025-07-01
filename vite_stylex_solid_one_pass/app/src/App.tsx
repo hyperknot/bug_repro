@@ -1,5 +1,6 @@
 import { AliasComponent } from '@alias/component'
 import { aliasConst } from '@alias/const'
+import { sx } from '@alias/styleUtils'
 import { aliasVars } from '@alias/vars.stylex'
 import { WorkspaceComponent } from '@repo/workspace/component'
 import { workspaceConst } from '@repo/workspace/const'
@@ -9,7 +10,6 @@ import { OutsideComponent } from '../../outside/component'
 import { outsideConst } from '../../outside/const'
 import { outsideVars } from '../../outside/vars.stylex'
 import { projVars } from '../vars.stylex'
-import { sx } from '@alias/styleUtils'
 import { srcVars } from './vars.stylex'
 
 const styles = stylex.create({

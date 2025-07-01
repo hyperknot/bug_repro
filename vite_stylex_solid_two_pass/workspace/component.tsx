@@ -1,5 +1,5 @@
-import * as stylex from '@stylexjs/stylex'
 import { sx } from '@alias/styleUtils'
+import * as stylex from '@stylexjs/stylex'
 import { workspaceVars } from './vars.stylex'
 
 const styles = stylex.create({

@@ -30,10 +30,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "app/src/**/*",
-    "alias/**/*",
-    "outside/**/*",
-    "workspace/**/*"
-  ]
+  "include": ["app/src/**/*", "alias/**/*", "outside/**/*", "workspace/**/*"]
 }
