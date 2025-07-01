@@ -27,14 +27,14 @@ const styles = stylex.create({
 
 function App() {
   const a = stylex.props(styles.local)
-  const b = stylex.attrs(styles.local)
+  // const b = stylex.attrs(styles.local)
   const c = stylex.props(styles.local, styles.dynamic(30))
-  const d = stylex.attrs(styles.local, styles.dynamic(30))
+  // const d = stylex.attrs(styles.local, styles.dynamic(30))
 
   console.log(a)
-  console.log(b)
+  // console.log(b)
   console.log(c)
-  console.log(d)
+  // console.log(d)
 
   return (
     <div>
@@ -67,18 +67,18 @@ function App() {
         props dynamic - 14px blue underlined if works
       </div>
 
-      <div {...stylex.attrs(styles.local)}>
-        native attr (only works on 0.12) local value - red if works
-      </div>
-      <div {...stylex.attrs(styles.srcVar)}>
-        native attr (only works on 0.12) var from ./src/ - green if works
-      </div>
-      <div {...stylex.attrs(styles.projVar)}>
-        native attr (only works on 0.12) var from ../ - orange if works
-      </div>
-      <div {...stylex.attrs(styles.local, styles.dynamic('14px'))}>
-        native attr (only works on 0.12) dynamic - 14px blue underlined if works
-      </div>
+      {/*<div {...stylex.attrs(styles.local)}>*/}
+      {/*  native attr (only works on 0.12) local value - red if works*/}
+      {/*</div>*/}
+      {/*<div {...stylex.attrs(styles.srcVar)}>*/}
+      {/*  native attr (only works on 0.12) var from ./src/ - green if works*/}
+      {/*</div>*/}
+      {/*<div {...stylex.attrs(styles.projVar)}>*/}
+      {/*  native attr (only works on 0.12) var from ../ - orange if works*/}
+      {/*</div>*/}
+      {/*<div {...stylex.attrs(styles.local, styles.dynamic('14px'))}>*/}
+      {/*  native attr (only works on 0.12) dynamic - 14px blue underlined if works*/}
+      {/*</div>*/}
     </div>
   )
 }
