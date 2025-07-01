@@ -1,7 +1,7 @@
 import { defineConfig, presetMini } from 'unocss'
 
 export default defineConfig({
-  presets: [presetMini()],
+  // presets: [presetMini()],
   theme: {
     colors: {
       proj: 'orange',
