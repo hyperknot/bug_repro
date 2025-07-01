@@ -18,20 +18,27 @@ const styles = stylex.create({
     color: projVars.color,
   },
 
-  dynamic: (fontSize) => ({
-    fontSize,
+  dynamic: (marginLeft) => ({
+    marginLeft,
     color: 'blue',
     textDecoration: null,
   }),
 })
 
 function App() {
+  console.log(stylex.props(styles.local, styles.dynamic('14px')))
+  console.log(stylex.attrs(styles.local, styles.dynamic('14px')))
+
   return (
     <div>
-      <div {...sx(styles.local)}>sx local value - big red if works</div>
+      <div {...sx(styles.local)} style={{ 'margin-left': '30px' }}>
+        sx local value - big red if works
+      </div>
       <div {...sx(styles.srcVar)}>sx var from ./src/ - green if works</div>
-      <div {...sx(styles.projVar)}>sx var from ../ - orange if works</div>
-      <div {...sx(styles.local, styles.dynamic('14px'))}>
+      <div {...sx(styles.projVar)} style="margin-eft: 14px;">
+        sx var from ../ - orange if works
+      </div>
+      <div {...sx(styles.local, styles.dynamic('15px'))}>
         sx dynamic - 14px blue underlined if works
       </div>
 

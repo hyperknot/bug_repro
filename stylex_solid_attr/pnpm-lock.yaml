@@ -34,11 +34,11 @@ importers:
         specifier: ^9.25.0
         version: 9.30.0
       '@stylexjs/babel-plugin':
-        specifier: ^0.13.1
-        version: 0.13.1
+        specifier: 0.12.x
+        version: 0.12.0
       '@stylexjs/postcss-plugin':
-        specifier: ^0.13.1
-        version: 0.13.1
+        specifier: 0.12.x
+        version: 0.12.0
       '@types/babel__core':
         specifier: ^7.20.5
         version: 7.20.5
@@ -548,17 +548,18 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@stylexjs/babel-plugin@0.13.1':
-    resolution: {integrity: sha512-W3l025ebB88GP/XO2NCNjXFMQYkl7YqWk/z2UfvXRYY8LoQ7O7fhds+0iLJ8R+39CerpFU1CDHWIbPhAuLUKtA==}
+  '@stylexjs/babel-plugin@0.12.0':
+    resolution: {integrity: sha512-Xu4pydpzXCDAWMmBhmvnrVEmqR69BztZuNXe2W+NFUz4mnyWlQnkm+h6sWFEELGdJR4EDOzwOikEeW2Vb435eQ==}
 
-  '@stylexjs/postcss-plugin@0.13.1':
-    resolution: {integrity: sha512-0Y9osp5rNlJHsU1yfKXllSfVZBy5cyLzP2yvPUjedaHoXn0FjOaS0R+EkzkQj8eDOEqlmnO1Zx3uNAR9afjqeA==}
+  '@stylexjs/postcss-plugin@0.12.0':
+    resolution: {integrity: sha512-8Fj8SEr2sb+j95wDcX7vcV6tciqptqRtWzfJR847Ih1bPBP5pXxrbiY5S68BQ6MeBpW7Ge3vG2ajEmgguO+YfA==}
+
+  '@stylexjs/shared@0.12.0':
+    resolution: {integrity: sha512-R698EHDuMo6OJCxcNg/tlA7ZCDQlrHeHaV7as78hDZ9WgP/IPhcg5HWmlF0H0kJ5WcC3jMEPGtsWWRxdWolZ1w==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@stylexjs/stylex@0.12.0':
     resolution: {integrity: sha512-gvazVsoTNRTnXldvmV/IIa1bB6UStoWMmRpoH/O+/f05IWnq5xES5foWxaPKm0uZD1vQ2Ue5e820lwT5+YqnrQ==}
-
-  '@stylexjs/stylex@0.13.1':
-    resolution: {integrity: sha512-s/aRE+pGaroMSttMDlrSMHf1lTF+uGe4ncWoRMlKZav6pg5g11sWuJojgA640aZy9jFgWvWSWbXzyUzeoDuMUQ==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1696,22 +1697,22 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.44.1':
     optional: true
 
-  '@stylexjs/babel-plugin@0.13.1':
+  '@stylexjs/babel-plugin@0.12.0':
     dependencies:
       '@babel/core': 7.27.7
       '@babel/helper-module-imports': 7.27.1
       '@babel/traverse': 7.27.7
       '@babel/types': 7.27.7
       '@dual-bundle/import-meta-resolve': 4.1.0
-      '@stylexjs/stylex': 0.13.1
-      postcss-value-parser: 4.2.0
+      '@stylexjs/shared': 0.12.0
+      '@stylexjs/stylex': 0.12.0
     transitivePeerDependencies:
       - supports-color
 
-  '@stylexjs/postcss-plugin@0.13.1':
+  '@stylexjs/postcss-plugin@0.12.0':
     dependencies:
       '@babel/core': 7.27.7
-      '@stylexjs/babel-plugin': 0.13.1
+      '@stylexjs/babel-plugin': 0.12.0
       fast-glob: 3.3.3
       glob-parent: 6.0.2
       is-glob: 4.0.3
@@ -1719,13 +1720,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@stylexjs/stylex@0.12.0':
+  '@stylexjs/shared@0.12.0':
     dependencies:
-      css-mediaquery: 0.1.2
-      invariant: 2.2.4
-      styleq: 0.2.1
+      postcss-value-parser: 4.2.0
 
-  '@stylexjs/stylex@0.13.1':
+  '@stylexjs/stylex@0.12.0':
     dependencies:
       css-mediaquery: 0.1.2
       invariant: 2.2.4

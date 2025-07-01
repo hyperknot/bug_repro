@@ -43,6 +43,8 @@ function stylexPlugin(): Plugin {
         filename: id,
         sourceMaps: true,
       })
+      console.log(id)
+      console.log(result?.code)
 
       return result?.code ? { code: result.code, map: result.map } : null
     },
@@ -64,7 +66,7 @@ export default defineConfig({
       plugins: [
         stylexPostcss({
           babelConfig: stylexBabelConfig,
-          include: ['src/**/*.{ts,tsx}'],
+          include: ['src/**/*.{ts,tsx}', './*.{ts,tsx}'],
           useCSSLayers: true,
         }),
       ],
