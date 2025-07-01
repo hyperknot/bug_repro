@@ -26,11 +26,15 @@ const styles = stylex.create({
 })
 
 function App() {
-  console.log({ ...stylex.props(styles.local) })
-  console.log({ ...stylex.attrs(styles.local) })
+  const a = stylex.props(styles.local)
+  const b = stylex.attrs(styles.local)
+  const c = stylex.props(styles.local, styles.dynamic(30))
+  const d = stylex.attrs(styles.local, styles.dynamic(30))
 
-  console.log({ ...stylex.props(styles.local, styles.dynamic(30)) })
-  console.log({ ...stylex.attrs(styles.local, styles.dynamic(30)) })
+  console.log(a)
+  console.log(b)
+  console.log(c)
+  console.log(d)
 
   return (
     <div>
@@ -45,8 +49,12 @@ function App() {
         sx dynamic - 14px blue underlined if works
       </div>
 
-      <div {...attrs(stylex.props(styles.local))}>attr local value - red if works</div>
-      <div {...attrs(stylex.props(styles.srcVar))}>attr var from ./src/ - green if works</div>
+      <div {...attrs(stylex.props(styles.local))} style={{ '--marginLeft': '30px' }}>
+        attr local value - red if works
+      </div>
+      <div {...attrs(stylex.props(styles.srcVar))} style="--marginLeft:30px;">
+        attr var from ./src/ - green if works
+      </div>
       <div {...attrs(stylex.props(styles.projVar))}>attr var from ../ - orange if works</div>
       <div {...attrs(stylex.props(styles.local, styles.dynamic(30)))}>
         attrs dynamic - 14px blue underlined if works
