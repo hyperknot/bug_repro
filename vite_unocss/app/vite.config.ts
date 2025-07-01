@@ -1,5 +1,7 @@
 import path from 'node:path'
+import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
+import solid from 'vite-plugin-solid'
 
 export default defineConfig({
   build: {
@@ -12,5 +14,9 @@ export default defineConfig({
     },
     dedupe: ['solid-js'],
   },
-  plugins: [],
+  plugins: [
+    //
+    UnoCSS(),
+    solid(),
+  ],
 })
