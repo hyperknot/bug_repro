@@ -76,7 +76,7 @@ const stylexPropsBabelPlugin = (): babel.PluginObj => ({
 
 function fixStylexPropsClassNamePlugin(): Plugin {
   // Target the specific stylex.mjs file
-  const filter = createFilter('**/@stylexjs/stylex/lib/es/stylex.mjs')
+  const filter = createFilter('**/@stylexjs/stylex/**/stylex.mjs')
 
   return {
     name: 'stylex-props-fix',
