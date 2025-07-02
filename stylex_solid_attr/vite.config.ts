@@ -25,7 +25,6 @@ const classNameToClassBabelPlugin = (): babel.PluginObj => ({
   },
 })
 
-// @ts-ignore
 function classNameToClassPlugin(): Plugin {
   const filter = createFilter('**/*.{js,ts,jsx,tsx}', 'node_modules/**')
 
@@ -75,7 +74,7 @@ const stylexPropsBabelPlugin = (): babel.PluginObj => ({
   },
 })
 
-function stylexPropsPlugin(): Plugin {
+function fixStylexPropsClassNamePlugin(): Plugin {
   // Target the specific stylex.mjs file
   const filter = createFilter('**/@stylexjs/stylex/lib/es/stylex.mjs')
 
@@ -150,7 +149,7 @@ export default defineConfig({
     //
     stylexPlugin(),
     classNameToClassPlugin(),
-    stylexPropsPlugin(),
+    fixStylexPropsClassNamePlugin(),
     solid(),
   ],
   css: {
