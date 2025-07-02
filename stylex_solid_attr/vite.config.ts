@@ -52,7 +52,7 @@ function classNameToClassPlugin(): Plugin {
 }
 
 // Fix props function in node_modules/stylex
-const stylexPropsBabelPlugin = (): babel.PluginObj => ({
+const fixStylexPropsBabelPlugin = (): babel.PluginObj => ({
   name: 'stylex-props-fix',
   visitor: {
     FunctionDeclaration(path) {
@@ -74,19 +74,18 @@ const stylexPropsBabelPlugin = (): babel.PluginObj => ({
   },
 })
 
-function fixStylexPropsClassNamePlugin(): Plugin {
+function fixStylexPropsPlugin(): Plugin {
   // Target the specific stylex.mjs file
   const filter = createFilter('**/@stylexjs/stylex/**/stylex.mjs')
 
   return {
     name: 'stylex-props-fix',
-    enforce: 'pre',
     async transform(code: string, id: string) {
       if (!filter(id)) return null
 
       const result = await babel.transformAsync(code, {
         presets: ['@babel/preset-typescript'],
-        plugins: [stylexPropsBabelPlugin()],
+        plugins: [fixStylexPropsBabelPlugin()],
         filename: id,
         sourceMaps: true,
       })
@@ -149,7 +148,7 @@ export default defineConfig({
     //
     stylexPlugin(),
     classNameToClassPlugin(),
-    fixStylexPropsClassNamePlugin(),
+    fixStylexPropsPlugin(),
     solid(),
   ],
   css: {
