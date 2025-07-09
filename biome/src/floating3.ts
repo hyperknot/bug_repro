@@ -1,5 +1,3 @@
-import type { ElectronDbOp, ElectronDbReq } from './db/electron-db-protocol'
-
 async function init() {
   initIPCMain()
   createWindow()
