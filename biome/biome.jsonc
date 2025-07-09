@@ -1,0 +1,154 @@
+{
+  "root": true,
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "maxSize": 100000,
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/.venv",
+      "!**/_not_used",
+      "!**/cdn",
+      "!**/debug/**",
+      "!**/dist",
+      "!**/dist-electron/**",
+      "!**/node_modules/**"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "domains": {
+      "solid": "all"
+    },
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "generic"
+          }
+        },
+        "useLiteralEnumMembers": "error",
+        "useNodejsImportProtocol": "error",
+        "useAsConstAssertion": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "useExponentiationOperator": "error",
+        "useTemplate": "error",
+        "noParameterAssign": "error",
+        "useDefaultParameterLast": "error",
+        "useImportType": "error",
+        "useExportType": "error",
+        "useShorthandFunctionType": "error",
+        "noUselessElse": "error"
+      },
+      "security": {},
+      "a11y": {
+        "useFocusableInteractive": "off", // The HTML element with the interactive role "treeitem" is not focusable.
+        "useSemanticElements": "off", // SessionTreeDay / role="group"
+        "noStaticElementInteractions": "off", // SessionTreeDay / To add interactivity such as a mouse or key event listener to a static element, give the element an appropriate role value.
+        "useAriaPropsSupportedByRole": "off", // SessionTree / The ARIA attribute 'aria-multiselectable' is not supported by this element.
+        "useKeyWithClickEvents": "off", // PasteBlock / Enforce to have the onClick mouse event with the onKeyUp, the onKeyDown, or the onKeyPress keyboard event.
+        "noNoninteractiveElementToInteractiveRole": "off" // SessionTree
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "off",
+        "noUnusedImports": "off",
+        "noUnusedVariables": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noImplicitAnyLet": "off"
+        //        "noDuplicateObjectKeys": "off"
+        //        "noDebugger": "off"
+      },
+      "complexity": {
+        "noCommaOperator": "error",
+        "useNumericLiterals": "error",
+        "noArguments": "error"
+        //        "noUselessFragments": "off"
+      },
+      "nursery": {
+        "noShadow": "error",
+        "noDestructuredProps": "error", // solid
+        "noGlobalDirnameFilename": "error", // __dirname, __filename
+        //        "useReadonlyClassProperties": "error",
+        //        "noImportCycles": "error",
+
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error",
+
+        //        "noUnassignedVariables": "error", // bug reported ref= not recognised
+        "noUselessBackrefInRegex": "error",
+        "noUselessEscapeInString": "error",
+        "noUselessUndefined": "error",
+        "useAdjacentGetterSetter": "error",
+        "useConsistentResponse": "error",
+        "useExhaustiveSwitchCases": "error",
+        "useForComponent": "error",
+        "useIndexOf": "error",
+        "useIterableCallbackReturn": "error",
+        "useObjectSpread": "error",
+        "useParseIntRadix": "error",
+        "useSingleJsDocAsterisk": "error",
+        "noImplicitCoercion": "error" // Number(), Boolean()
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+        //        "useSortedProperties": "on" // sort CSS props
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDuplicateProperties": "off",
+            "noEmptyBlock": "off"
+          },
+          "style": { "noDescendingSpecificity": "off" }
+        }
+      }
+    }
+  ]
+}
