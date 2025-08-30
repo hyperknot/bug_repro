@@ -1,9 +1,10 @@
 /* @refresh reload */
 
+import { AppUI } from '@shared/components/AppUI'
 import { render } from 'solid-js/web'
 
-import '@shared/styles/tailwind/_tailwind.css'
-import '@shared/styles/_stylesheet.css'
+import '@shared/styles/tailwind/_tailwind.css' // OK
+// import '@shared/styles/_stylesheet.css' // broken
 
 const root = document.getElementById('root')
-render(() => <div>abc</div>, root!)
+render(() => <AppUI />, root!)

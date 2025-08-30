@@ -1,0 +1,3 @@
+export const BadAppUI = () => {
+  return <div class="h-100 w-100 bg-red-800" />
+}
