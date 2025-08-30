@@ -1,2 +1,5 @@
+/* OK case */
 @import "tailwindcss" source("../../components");
 
+/* broken case */
+/*@import "tailwindcss" source("../components");*/
