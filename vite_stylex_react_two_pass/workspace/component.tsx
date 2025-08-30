@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error
 import * as stylex from '@stylexjs/stylex'
 
 import { workspaceVars } from './vars.stylex'
@@ -11,6 +11,6 @@ const styles = stylex.create({
 })
 
 export function WorkspaceComponent() {
-  // @ts-ignore
+  // @ts-expect-error
   return <div {...stylex.props(styles.base)}>component from ../workspace</div>
 }

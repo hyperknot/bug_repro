@@ -1,7 +1,7 @@
 import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
 import * as babel from '@babel/core'
-// @ts-ignore
+// @ts-expect-error
 import stylexPostcss from '@stylexjs/postcss-plugin'
 import react from '@vitejs/plugin-react'
 import { createFilter, defineConfig, type Plugin } from 'vite'

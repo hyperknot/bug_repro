@@ -1,6 +1,6 @@
 import type { TransformOptions } from '@babel/core'
 import * as babel from '@babel/core'
-// @ts-ignore
+// @ts-expect-error
 import stylexPostcss from '@stylexjs/postcss-plugin'
 import { createFilter, type Plugin } from 'vite'
 

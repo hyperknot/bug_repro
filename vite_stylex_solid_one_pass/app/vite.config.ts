@@ -1,6 +1,6 @@
 import path from 'node:path'
 import type { TransformOptions } from '@babel/core'
-// @ts-ignore
+// @ts-expect-error
 import stylexPostcss from '@stylexjs/postcss-plugin'
 import { defineConfig } from 'vite'
 import solid from './vite-plugin-solid-mod'

@@ -129,7 +129,7 @@ function getProperty(object, property) {
     return object[property]
   } catch (err) {
     // Intentionally ignore.
-    return undefined
+    return
   }
 }
 
