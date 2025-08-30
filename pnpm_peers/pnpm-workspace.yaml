@@ -1,6 +1,0 @@
-packages:
-  - 'packages/*'
-  - 'web'
-
-autoInstallPeers: false
-strictPeerDependencies: true
